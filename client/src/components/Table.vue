@@ -12,7 +12,7 @@
         <tr>
           <th scope="row">Larry</th>
           <td>
-            <button class="btn btn-success">Join</button>
+            <button class="btn btn-success" @click="showWaiting">Join</button>
           </td>
         </tr>
       </tbody>
@@ -22,9 +22,16 @@
 
 
 <script>
+import router from "../router";
+
 export default {
   data() {
     return {};
+  },
+  methods: {
+    showWaiting() {
+      this.$router.push({ path: "/Waiting" });
+    },
   },
 };
 </script>
