@@ -1,21 +1,21 @@
 <template>
-    <div    ``>
+    <div>
         <div class="login">
             <div class="container">
                 <div class="d-flex justify-content-center h-100">
                     <div class="card">
-                        <img src="../assets/bionicflyingfox.gif" style="width: 100%; height: 50%;">
+                        <img src="https://image.freepik.com/free-vector/cowboy-head-mascot_9645-506.jpg" style="margin-left: 28%; width: 40%; height: 30%;">
                         <div class="card-header">
                             <h3 style="font-family: 'Bungee Shade', cursive;">Insert Your Name</h3>
                         </div>
                         <div class="card-body">
-                        <form>
+                        <form v-on:submit.prevent="playerLogin">
                             <div class="input-group form-group">
-                            <input type="text" class="form-control" placeholder="username" v-model="username">
+                            <input type="text" class="form-control" placeholder="username" v-model="playerName" required>
                             </div>
                             <br><br>
                             <div class="form-group">
-                            <input type="submit" value="Go" class="btn login_btn" @click.prevent="enter">
+                            <input type="submit" value="Go" class="btn login_btn">
                             </div>
                         </form>
                         </div>
@@ -28,17 +28,19 @@
 
 <script>
 import Swal from 'sweetalert2';
+import io from 'socket.io-client';
 
 export default {
   name: 'Login',
   data() {
     return {
-        username: '',
+        playerName: '',
     };
   },
   methods: {
-    enter () {
-
+    playerLogin () {
+        this.$store.dispatch('playerLogin', { name: this.playerName })
+        this.playerName = ''
     }
   },
 };

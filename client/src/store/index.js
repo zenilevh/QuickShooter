@@ -2,6 +2,9 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 import io from 'socket.io-client';
+import router from '../router';
+
+const socket = io('http://localhost:3000')
 
 Vue.use(Vuex);
 
@@ -18,8 +21,10 @@ export default new Vuex.Store({
     },
     mutations: {
         playerLogin (state, player) {
-            state.gameStatus = 'waiting'
+            state.gameStatus = 'idle'
             state.playerName = player.name
+            localStorage.setItem('current_player', player.name)
+            router.push({name: 'Waiting'})
         },
 
         setRandomCountdown (state, number) {
