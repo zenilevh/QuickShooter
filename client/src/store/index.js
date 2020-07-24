@@ -46,7 +46,7 @@ export default new Vuex.Store({
         },
 
         showWinner(state, player) {
-            state.winner = player.win
+            state.winner = player
             state.gameStatus = 'end'
         },
 

@@ -8,6 +8,9 @@ const port = process.env.PORT || 3000
 const cors = require('cors')
 
 app.use(cors())
+app.get('/', function(res, req){
+  res.send('Hello')
+})
 
 let gameLog = [];
 let guestResult = [];
