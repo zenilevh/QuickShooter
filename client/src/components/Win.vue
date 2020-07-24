@@ -5,6 +5,7 @@
     id="WIN"
   >
     <h1 class="text-center display-5">{{$store.state.winner}} is the Winner!</h1>
+    <button class="btn btn-secondary" @click.prevent="reload()">Play Again!</button>
   </div>
 </template>
 
@@ -12,11 +13,13 @@
 <script>
 export default {
   data() {
-    return {
-
-    };
+    return {};
   },
-
+  methods: {
+    reload() {
+      this.$store.commit("RELOAD_GAME");
+    },
+  },
 };
 </script>
 

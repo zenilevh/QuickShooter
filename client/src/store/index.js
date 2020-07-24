@@ -20,95 +20,101 @@ export default new Vuex.Store({
         gameLog: {}
     },
     mutations: {
-        playerLogin (state, player) {
+        playerLogin(state, player) {
             state.gameStatus = 'idle'
             state.playerName = player.name
             localStorage.setItem('current_player', player.name)
-            router.push({name: 'Waiting'})
+            router.push({ name: 'Waiting' })
         },
 
-        setRandomCountdown (state, number) {
-            console.log(state, '<< state', number,'<< number value')
+        setRandomCountdown(state, number) {
+            console.log(state, '<< state', number, '<< number value')
             state.gameStatus = 'play'
             state.isRandomCountdown = number.value
         },
-        setWinner (state, winner) {
+        setWinner(state, winner) {
             state.winner = winner
-            router.push({name: 'Win'})
+            router.push({ name: 'Win' })
         },
-        
-        shooterSubmit (state, shooter) {
+
+        shooterSubmit(state, shooter) {
             state.shooterResult = shooter.result
         },
 
-        showShooter (state, shooters) {
+        showShooter(state, shooters) {
             state.gameLog = shooters.value
         },
 
-        showWinner (state, winner) {
+        showWinner(state, winner) {
             state.winner = winner
             state.gameStatus = 'end'
         },
 
-        resetClick (state) {
+        resetClick(state) {
             state.isClick = false
         },
 
-        clicked (state) {
+        clicked(state) {
             state.isClick = true
         },
 
-        resetSubmitted (state) {
+        resetSubmitted(state) {
             state.isSubmitted = false
         },
 
-        submitted (state) {
+        submitted(state) {
             state.isSubmitted = true
         },
 
-        resetGame (state) {
+        resetGame(state) {
             state.gameStatus = 'start',
-            state.playerName = '',
-            state.isRandomCountdown = 0,
-            state.isClick = false,
-            state.isSubmitted = false,
-            state.shooterResult = '',
-            state.winner = {},
-            state.gameLog = {}
+                state.playerName = '',
+                state.isRandomCountdown = 0,
+                state.isClick = false,
+                state.isSubmitted = false,
+                state.shooterResult = '',
+                state.winner = {},
+                state.gameLog = {}
+        },
+        RELOAD_GAME() {
+            localStorage.clear();
+            router.push({ name: "Login" })
         }
 
     },
     actions: {
-        playerLogin (context, player) {
-        
-            
+        playerLogin(context, player) {
+
+
         },
 
-        setRandomCountdown (context, number) {
+        setRandomCountdown(context, number) {
             context.commit('setRandomCountdown', number)
-            router.push({name: 'Game'})
+            router.push({ name: 'Game' })
         },
 
-        shooterSubmit (context, shooter) {
+        shooterSubmit(context, shooter) {
             context.commit('shooterSubmit', shooter)
             context.commit('submitted')
-            socket.emit('shoot-submit', { playerName: this.state.playerName,
-            shooterResult: shooter.result})
+            socket.emit('shoot-submit', {
+                playerName: this.state.playerName,
+                shooterResult: shooter.result
+            })
         },
 
-        showShooter (context, shooters) {
+        showShooter(context, shooters) {
             context.commit('showWinner', shooters)
         },
 
-        resetSubmitted (context) {
+        resetSubmitted(context) {
             context.commit('resetSubmitted')
         },
 
-        requestResetGame () {
+        requestResetGame() {
             socket.emit('request-reset-game')
         },
 
-        resetGame (context) {
+        resetGame(context) {
             context.commit('resetGame')
         }
     },
