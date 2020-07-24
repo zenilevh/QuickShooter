@@ -6,6 +6,9 @@
   >
     <h1 class="text-center display-5">{{$store.state.winner}} is the Winner!</h1>
     <button class="btn btn-secondary" @click.prevent="reload()">Play Again!</button>
+    <audio controls autoplay hidden>
+      <source src="../assets/winning.mp3" type="audio/ogg" />
+    </audio>
   </div>
 </template>
 
