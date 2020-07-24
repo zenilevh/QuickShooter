@@ -29,6 +29,7 @@
 <script>
 import Swal from 'sweetalert2';
 import io from 'socket.io-client';
+const socket = io('http://localhost:3000')
 
 export default {
   name: 'Login',
@@ -39,7 +40,8 @@ export default {
   },
   methods: {
     playerLogin () {
-        this.$store.dispatch('playerLogin', { name: this.playerName })
+        this.$store.commit('playerLogin', { name: this.playerName })
+        socket.emit('player-login', {name: this.playerName})
         this.playerName = ''
     }
   },

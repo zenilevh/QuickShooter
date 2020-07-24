@@ -4,7 +4,7 @@
     style="width: 700px"
     id="WIN"
   >
-    <h1 class="text-center display-5">CONGRATS BRUH LU MENANG</h1>
+    <h1 class="text-center display-5">{{$store.state.winner}} is the Winner!</h1>
   </div>
 </template>
 
@@ -12,8 +12,11 @@
 <script>
 export default {
   data() {
-    return {};
+    return {
+
+    };
   },
+
 };
 </script>
 

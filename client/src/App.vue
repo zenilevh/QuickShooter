@@ -8,8 +8,6 @@
 
 <script>
 import Navbar from "./components/Navbar.vue";
-import io from 'socket.io-client';
-const socket = io('http://localhost:3000')
 
 export default {
   name: 'app',
@@ -19,11 +17,7 @@ export default {
   components: {
     Navbar,
   },
-  created () {
-    socket.on('game-start', function(number){
-      this.$store.commit('setRandomCountdown', number)
-    })
-  }
+  
 };
 </script>
 

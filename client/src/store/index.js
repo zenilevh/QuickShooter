@@ -16,7 +16,7 @@ export default new Vuex.Store({
         isClick: false,
         isSubmitted: false,
         shooterResult: '',
-        winner: {},
+        winner: '',
         gameLog: {}
     },
     mutations: {
@@ -28,8 +28,13 @@ export default new Vuex.Store({
         },
 
         setRandomCountdown (state, number) {
+            console.log(state, '<< state', number,'<< number value')
             state.gameStatus = 'play'
             state.isRandomCountdown = number.value
+        },
+        setWinner (state, winner) {
+            state.winner = winner
+            router.push({name: 'Win'})
         },
         
         shooterSubmit (state, shooter) {
@@ -75,12 +80,13 @@ export default new Vuex.Store({
     },
     actions: {
         playerLogin (context, player) {
-            context.commit('playerLogin', player)
-            socket.emit('player-login', {name: player.name})
+        
+            
         },
 
         setRandomCountdown (context, number) {
-            context.commit('isRandomCountdown', number)
+            context.commit('setRandomCountdown', number)
+            router.push({name: 'Game'})
         },
 
         shooterSubmit (context, shooter) {
