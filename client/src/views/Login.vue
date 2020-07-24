@@ -23,6 +23,9 @@
                 </div>
             </div>
         </div>
+        <audio controls autoplay hidden>
+            <source src="../assets/opening.mp3" type="audio/ogg" />
+        </audio>
     </div>
 </template>
 

@@ -4,7 +4,11 @@
     style="width: 700px"
     id="WIN"
   >
-    <h1 class="text-center display-5">{{$store.state.winner}} is the Winner!</h1>
+    <h1 class="text-center display-5">{{$store.state.winner}}</h1>
+    <h1 class="text-center display-5">{{$store.state.loser}}</h1>
+     <audio controls autoplay hidden>
+       <source src="../assets/winning.mp3" type="audio/ogg" />
+     </audio>
   </div>
 </template>
 

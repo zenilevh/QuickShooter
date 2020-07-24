@@ -10,11 +10,7 @@ const cors = require('cors')
 app.use(cors())
 
 let gameLog = [];
-let guestResult = [];
-let winner = [];
 let room = [];
-let shooters = [];
-
 // let randomInterval = Math.floor(Math.random()*5)+1;
 // randomInterval *=1000;
 
@@ -51,42 +47,23 @@ io.on('connection', (socket) => {
   });
 
   let isClickButton = false;
-  // let trueShooter = [];
 
   socket.on('flag', () => {
-    // trueShooter.push(player);
-    // console.log(trueShooter)
     isClickButton = true;
   });
 
   socket.on('shooter', (payload) => {
     console.log(payload)
-    if (isClickButton === true) {
-      io.emit('game-end', payload)
-    } else {
-      io.emit('game-end', payload)
+    if (isClickButton === true && payload === room[0]) {
+      io.emit('game-end', {win: `${room[0]} is the winner`, lose: `${room[1]} is the loser`})
+    } else if (isClickButton !== true && payload === room[0]){
+      io.emit('game-end', {win: `${room[1]} is the winner`, lose: `${room[0]} is the loser`})
+    } else if (isClickButton !== true && payload === room[1]) {
+      io.emit('game-end', {win: `${room[0]} is the winner`, lose: `${room[1]} is the loser`})
     }
-    
   });
-  // socket.on('winPlayer', (data) => {
-  //   console.log(data, '<< winner player')
-  // })
   
 });
-  // socket.on('shooter-submit', (data) => {
-  //   let message = `${data.playerName}'s shooter is ${data.shooterResult}`;
-
-  //   console.log(message)
-
-  //   if (data.shooterResult != '') {
-  //     message += '';
-  //   } else {
-  //     winner.push(data.playerName);
-  //   }
-  //   gameLog.push(message);
-  //   shooters.push(data);
-  // });
-
 
 http.listen(port, () => {
   console.log(`listening on *:${port}`);

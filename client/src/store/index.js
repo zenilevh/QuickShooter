@@ -17,6 +17,7 @@ export default new Vuex.Store({
         isSubmitted: false,
         shooterResult: '',
         winner: '',
+        loser: '',
         gameLog: {}
     },
     mutations: {
@@ -33,7 +34,8 @@ export default new Vuex.Store({
             state.isRandomCountdown = number.value
         },
         setWinner (state, winner) {
-            state.winner = winner
+            state.winner = winner.win
+            state.loser = winner.lose
             router.push({name: 'Win'})
         },
         

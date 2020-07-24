@@ -45,19 +45,16 @@ export default {
         socket.emit('flag')
         
       }
-      // if (this.isClick === false && this.clicked === true) {
-      //   console.log('masuk?')
-      //   socket.emit("losePlayer", localStorage.current_player);
-      // } else if (this.timer === 0 && this.clicked === true) {
-      //   console.log('masuk???')
-      //   socket.emit("winPlayer", localStorage.current_player);
-      // }
     });
     socket.on('game-end', (winner)=> {
       console.log(winner)
       this.$store.commit('setWinner', winner)
     })
-  }
+  },
+   mounted() {
+    var countdown = new Audio("../assets/countdown.mp3");
+    countdown.play();
+  },
 };
 </script>
 
