@@ -4,12 +4,15 @@
     <button @click.prevent="action" class="btn btn-danger" id="buthull">
       <h1 class="display-4">PREES THE BUTTON</h1>
     </button>
+    <audio controls autoplay hidden>
+      <source src="../assets/countdown.mp3" type="audio/ogg" />
+    </audio>
   </div>
 </template>
 
 <script>
-import io from 'socket.io-client';
-const socket = io('http://localhost:3000')
+import io from "socket.io-client";
+const socket = io("http://localhost:3000");
 
 export default {
   data() {
@@ -17,33 +20,24 @@ export default {
       timer: null,
       isClick: false,
       clicked: false,
-    }
+    };
   },
   methods: {
     action() {
-      console.log('JEBRET')
-      this.clicked = true
-      socket.emit('shooter', localStorage.current_player)
-
-
-    }
-  },
-  computed: {
-    timers() {
-      console.log("Helloo from computed")
-      
-    }
+      // this.clicked = true;
+      // var audio = new Audio("http://soundbible.com/grab.php?id=2050&type=mp3");
+      // audio.play();
+      socket.emit("shooter", localStorage.current_player);
+    },
   },
   created() {
-    console.log("Helloo from created")
-
-    socket.on('start-countdown', (data) => {
-      this.timer = data
-      console.log('masuk ga ni?')
-      if(data === 0) {
+    console.log("Helloo from created");
+    socket.on("start-countdown", (data) => {
+      this.timer = data;
+      console.log("masuk ga ni?");
+      if (data === 0) {
         this.isClick = true;
-        socket.emit('flag')
-        
+        socket.emit("flag");
       }
       // if (this.isClick === false && this.clicked === true) {
       //   console.log('masuk?')
@@ -53,11 +47,15 @@ export default {
       //   socket.emit("winPlayer", localStorage.current_player);
       // }
     });
-    socket.on('game-end', (winner)=> {
-      console.log(winner)
-      this.$store.commit('setWinner', winner)
-    })
-  }
+    socket.on("game-end", (winner) => {
+      console.log(winner);
+      this.$store.commit("setWinner", winner);
+    });
+  },
+  mounted() {
+    var countdown = new Audio("../assets/countdown.mp3");
+    countdown.play();
+  },
 };
 </script>
 
