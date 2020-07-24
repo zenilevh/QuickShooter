@@ -5,12 +5,31 @@
 </template>
 
 
-
 <script>
+import io from 'socket.io-client';
+const socket = io('http://localhost:3000')
+
 export default {
   data() {
-    return {};
+    return {
+
+    };
   },
+  created() {
+    
+    socket.on('game-start', (number) => {
+      console.log('This is concole log METHOD WAITING.vue', number.value)
+      this.$store.dispatch('setRandomCountdown', number.value)
+    })
+  },
+  // mounted() {
+  //   this.socket = io.connect('http://localhost:3000')
+
+  //   this.socket.on('game-start', function(number){
+  //     this.$store.dispatch('setRandomCountdown', number)
+  //   })
+  //   console.log('This is concole log METHOD WAITING.vue', number)
+  // }
 };
 </script>
 

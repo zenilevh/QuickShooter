@@ -1,0 +1,10 @@
+1. Setelah Game Start
+2. Set Interval pertama untuk start countdown
+3. Setelah countdown = 0, 
+4. jalankan Set Interval kedua untuk mengubah 
+   variabel isClick = true
+5. Isi dari Set Interval kedua adalah waktu random dari 1-5
+6. Jika waktu Set Interval kedua = 0, mengubah isClick = true
+7. Dan memanggil Set Interval Ketiga untuk menghitung time limit 
+   ketika Set Interval = 0, isDraw = true
+8. Game Finished

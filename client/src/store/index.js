@@ -2,6 +2,9 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 import io from 'socket.io-client';
+import router from '../router';
+
+const socket = io('http://localhost:3000')
 
 Vue.use(Vuex);
 
@@ -13,18 +16,25 @@ export default new Vuex.Store({
         isClick: false,
         isSubmitted: false,
         shooterResult: '',
-        winner: {},
+        winner: '',
         gameLog: {}
     },
     mutations: {
         playerLogin (state, player) {
-            state.gameStatus = 'waiting'
+            state.gameStatus = 'idle'
             state.playerName = player.name
+            localStorage.setItem('current_player', player.name)
+            router.push({name: 'Waiting'})
         },
 
         setRandomCountdown (state, number) {
+            console.log(state, '<< state', number,'<< number value')
             state.gameStatus = 'play'
             state.isRandomCountdown = number.value
+        },
+        setWinner (state, winner) {
+            state.winner = winner
+            router.push({name: 'Win'})
         },
         
         shooterSubmit (state, shooter) {
@@ -70,12 +80,13 @@ export default new Vuex.Store({
     },
     actions: {
         playerLogin (context, player) {
-            context.commit('playerLogin', player)
-            socket.emit('player-login', {name: player.name})
+        
+            
         },
 
         setRandomCountdown (context, number) {
-            context.commit('isRandomCountdown', number)
+            context.commit('setRandomCountdown', number)
+            router.push({name: 'Game'})
         },
 
         shooterSubmit (context, shooter) {

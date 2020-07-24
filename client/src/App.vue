@@ -8,15 +8,16 @@
 
 <script>
 import Navbar from "./components/Navbar.vue";
-import io from 'socket.io-client';
 
 export default {
+  name: 'app',
   data() {
     return {};
   },
   components: {
     Navbar,
   },
+  
 };
 </script>
 

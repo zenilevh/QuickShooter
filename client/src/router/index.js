@@ -19,6 +19,7 @@ const routes = [
         path: '/',
         name: 'Home',
         component: Home,
+
     }, {
         path: '/Waiting',
         name: 'Waiting',
@@ -41,5 +42,10 @@ const router = new VueRouter({
     base: process.env.BASE_URL,
     routes,
 });
+
+router.beforeEach((to, from, next) => {
+    if (to.name !== 'Login' && !localStorage.current_player) next({ name: 'Login' })
+    else next()  
+})
 
 export default router;
